@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>CSS Layout A 02</title>
+
+
+
+    <style>
+        @import url(fonts/inter/font-style.css);
+        /*For the examples in this series we will stick with individual style sheets in the documents' heads'*/
+
+        /*-------------
+        VARIABLES
+        Some CSS variables can come in handy.
+        -------------*/
+
+        :root {
+            --hmargin1: 1.5rem;
+            --hmargin2: 15vw;
+            --gridmargin: 1px;
+        }
+
+        /*-------------
+        RESET
+        Just some very basic resets.
+        -------------*/
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        header a,
+        nav a {
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        figure {
+            break-inside: avoid;
+        }
+
+        /*-------------
+        BASIC LAYOUT
+        This is mainly to bring back some basic layout, which the reset set to zero. I prefer using padding before margin in almost any case. More modern approaches such as gap are ignored on purpose due to (at the time of this writing) not yet fully available browswer compatibility (Safari).
+        -------------*/
+        figure,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        ul,
+        ol {
+            padding: 1rem var(--hmargin1);
+        }
+
+        .more-link,
+        article h2,
+        article h3,
+        p {
+            padding: 0 var(--hmargin1);
+
+        }
+        
+        article h2,
+        article h3,
+        p {
+                    margin-bottom: 1rem;    
+        }
+
+        header,
+        main,
+        footer,
+        article {
+            padding: 1rem 0;
+        }
+
+
+        article {
+            margin-bottom: 1rem;
+        }
+
+        main {
+            min-height: 50vh;
+        }
+
+        main>section {
+            padding-top: 2rem;
+        }
+
+
+        /*-------------
+        NAVIGATION
+        In my style sheets the navigation elements get their own layout section.
+        -------------*/
+
+        .main-menu>ul {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .main-menu>ul>li {
+            margin-right: 1em;
+        }
+
+
+        /*-------------
+        COLORS & STYLE
+        Relatively strong colors to indicate what is where (not so much to make it look good). Still I use hsl and hsla because it is the smartest color coding in CSS.
+        -------------*/
+
+        body {
+            background: hsl(200, 55%, 55%);
+        }
+
+        header {
+            background: hsl(100, 55%, 55%);
+        }
+
+        nav {
+            background: hsla(0, 0%, 100%, 0.8);
+        }
+
+        main {
+            background: #fff;
+        }
+        
+.grid article {
+            background: hsla(0, 0%, 0%, 0.1);
+        }
+
+        a:hover {
+            color: hsl(30, 94%, 55%);
+        }
+
+        /*-------------
+        TYPOGRAPHY
+        Just some very basic settings.
+        -------------*/
+
+        body {
+            font-family: 'Inter', serif; 
+            /*serif not as a fallback here but as a test whether Inter is loading*/
+            font-weight: 300;
+            font-size: 20px;
+            /*
+            The standard size 16px is way to small imho.
+            This value can easily be varied in media queries.
+            */
+        }
+
+        figcaption {
+            font-size: 0.8em;
+            font-style: italic;
+        }
+
+        /*-------------
+        RESPONSIVE
+        -------------*/
+
+
+        @media only screen and (min-width: 961px) {
+
+
+            body {
+                font-size: 16px;
+            }
+
+            .main-menu,
+            .content-section {
+                padding-right: var(--hmargin2);
+                padding-left: var(--hmargin2);
+            }
+
+            .columns {
+                column-count: 2;
+                padding: 1rem var(--hmargin1);
+            }
+
+            .columns h2,
+            .columns h3,
+            .columns figure,
+            .columns p {
+                padding: 0;
+            }
+
+            .columns figure {
+                margin-bottom: 1rem;
+            }
+
+            .columns h2,
+            .columns h3 {
+                column-span: all;
+            }
+
+            .grid {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .grid h2,
+            .grid>p {
+                width: 100%;
+            }
+
+            .grid article {
+                width: calc(50% - var(--gridmargin));
+                margin-right: var(--gridmargin);
+                margin-bottom: var(--gridmargin);
+            }
+        }
+
+
+        @media only screen and (min-width: 1200px) {
+
+            .columns {
+                column-count: 3;
+            }
+
+            .grid article {
+                width: calc(33.33% - var(--gridmargin));
+                margin-right: var(--gridmargin);
+                margin-bottom: var(--gridmargin);
+            }
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <header id="main-header" class="main-header">
+        <section class="content-section main-header-content">
+            <h1 class="title">CSS Layout A 03a</h1>
+                        <p>
+                Examples 3a through 3c are to test the difference in several ways of including webfonts in a site. 3a will use the HTML link tag. All fonts are stored locally in site's assets.
+            </p>
+            <p class="description short-description>">
+                The A examples of layouts in this series are based on a very simple structure in HTML: just four first level elements without any surrounding wrappers. Header, nav, main, footer. The inner structures (for example within the main element) may vary, like in this example, which adds a section element to cluster articles.
+            </p>
+
+        </section>
+    </header>
+    <nav id="main-menu" class="main-menu">
+        <ul>
+            <li><a href="#">Nav Item</a></li>
+            <li><a href="#">Nav Item</a></li>
+            <li><a href="#">Nav Item</a></li>
+            <li><a href="#">Nav Item</a></li>
+        </ul>
+    </nav>
+    <main id="main-content" class="main-content">
+        <section class="content-section grid">
+            <h2>Section Grid Heading H2</h2>
+            <p>
+                It is actually pretty easy to create a card layout like in this example. Simply use the flexbox and then clever width settings for the flex elements. Please note that controlling a flex layout using the width property for flex elements is an entirely valid method and actually documented as one possible way to control flex layout by W3C.
+
+            </p>
+            <p>
+                With this approach one could for example easily turn the normal list view of articles in a standard WordPress setup into an article/post thumbnail grid.
+            </p>
+            <article>
+                <h3>Article 1 Heading H3</h3>
+                <figure>
+                    <img src="img/ice-1997288_1920.jpg">
+                    <figcaption>
+                        Image by <a href="https://pixabay.com/users/pezibear-526143/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pezibear</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pixabay</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    I am a paragraph within an article. The quick, brown fox jumps over a lazy dog.
+                </p>
+
+                <p class="more-link"><a href="#">More …</a></p>
+            </article>
+
+            <article>
+                <h3>Article 2 Heading H3</h3>
+                <figure>
+                    <img src="img/ice-1997288_1920.jpg">
+                    <figcaption>
+                        Image by <a href="https://pixabay.com/users/pezibear-526143/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pezibear</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pixabay</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    I am a paragraph within an article. The quick, brown fox jumps over a lazy dog.
+                </p>
+
+                <p class="more-link"><a href="#">More …</a></p>
+            </article>
+
+            <article>
+                <h3>Article 3 Heading H3</h3>
+
+                <figure>
+                    <img src="img/ice-1997288_1920.jpg">
+                    <figcaption>
+                        Image by <a href="https://pixabay.com/users/pezibear-526143/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pezibear</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pixabay</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    I am a paragraph within an article. The quick, brown fox jumps over a lazy dog.
+                </p>
+
+                <p class="more-link"><a href="#">More …</a></p>
+            </article>
+            <article>
+                <h3>Article 4 Heading H3</h3>
+                <figure>
+                    <img src="img/ice-1997288_1920.jpg">
+                    <figcaption>
+                        Image by <a href="https://pixabay.com/users/pezibear-526143/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pezibear</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pixabay</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    I am a paragraph within an article. The quick, brown fox jumps over a lazy dog.
+                </p>
+
+                <p class="more-link"><a href="#">More …</a></p>
+            </article>
+        </section>
+
+        <section class="content-section list">
+            <h2>Section List Heading H2</h2>
+            <article>
+                <h3>Article 1 Heading H3</h3>
+                <p>
+                    I am a paragraph within an article. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox.
+                </p>
+                <p>
+                    Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs!
+                </p>
+                <p>
+                    "Now fax quiz Jack!" my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box.
+                </p>
+
+            </article>
+
+            <article class="columns">
+                <h3>Article 2 Heading H3</h3>
+                <p>
+                    I am a paragraph within an article. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox.
+                </p>
+
+                <p>
+                    Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs!
+                </p>
+                <p>
+                    "Now fax quiz Jack!" my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box.
+                </p>
+            </article>
+
+            <article class="columns">
+                <h3>Article 3 Heading H3</h3>
+                <p>
+                    I am a paragraph within an article. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox.
+                </p>
+
+                <figure>
+                    <img src="img/ice-1997288_1920.jpg">
+                    <figcaption>
+                        Image by <a href="https://pixabay.com/users/pezibear-526143/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pezibear</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1997288" target="_blank">Pixabay</a>
+                    </figcaption>
+                </figure>
+
+                <p>
+                    Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs!
+                </p>
+
+                <p>
+                    "Now fax quiz Jack!" my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box.
+                </p>
+            </article>
+        </section>
+
+
+    </main>
+    <footer id="main-footer" class="main-footer">
+        <section class="content-section main-footer-content">
+            <p id="copyright" class="copyright">
+                &copy; Enno Hyttrek
+            </p>
+        </section>
+    </footer>
+
+</body>
+
+</html>
